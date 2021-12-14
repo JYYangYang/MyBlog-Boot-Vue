@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namspace绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.xu.mapper.articlemapper">
+<select id="QueryAll" resultType="Article" >
+    select * from article
+</select>
+
+    <insert id="add" parameterType="Map">
+     insert into article(author,title,introduction,content,themes) values (#{author},#{title},#{introduction},#{content},#{themes})
+    </insert>
+    <select id="QueryById" parameterType="int" resultType="Article">
+        select  * from article where id=#{id}
+    </select>
+    <delete id="DeleteById" parameterType="int">
+        delete from article where id=#{id}
+    </delete>
+
+    <update id="updateById" parameterType="Map">
+        update article set  author=#{author},title=#{title},
+        introduction=#{introduction},content=#{content},themes=#{themes} where id=#{id}
+    </update>
+
+
+    <select id="totalItemNumber" resultType="int" >
+        select count(*) from article
+    </select>
+
+
+
+
+    <select id="selectByPageItem" resultType="Article" parameterType="map">
+        select * from article limit #{startIndex},#{pageSize}
+    </select>
+
+
+    <select id="QueryThemes" resultType="Article">
+        select themes from article
+    </select>
+
+    <select id="QueryByTheme" resultType="Article" parameterType="String">
+        select * from article where  themes=#{themes}
+    </select>
+</mapper>
